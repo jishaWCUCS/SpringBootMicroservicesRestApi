@@ -4,6 +4,9 @@ import com.example.demo.entity.Book;
 import com.example.demo.repository.BookRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/books")
 public class BookController {
@@ -17,6 +20,11 @@ public class BookController {
     @PostMapping("/")
     public Book createBook(@RequestBody Book book){
         return bookRepository.save(book);
+    }
+
+    @GetMapping("/get")
+    public List<Book> getBookbyId(){
+        return bookRepository.findAll().stream().collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
